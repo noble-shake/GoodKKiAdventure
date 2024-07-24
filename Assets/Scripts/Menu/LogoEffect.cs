@@ -34,11 +34,11 @@ public class LogoEffect : MonoBehaviour
             yield return null;
         }
 
-        yield return new WaitForSeconds(0.2f);
-        EnterText.gameObject.SetActive(true);
-
         yield return new WaitForSeconds(0.5f);
+        EnterText.gameObject.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
+
+        MainMenuManager.instance.OnMainMenu();
         EnterText.gameObject.SetActive(false);
         Background.gameObject.SetActive(false);
 
