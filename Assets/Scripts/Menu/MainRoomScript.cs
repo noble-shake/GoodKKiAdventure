@@ -1,0 +1,79 @@
+using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class MainRoomScript : MonoBehaviour
+{
+    [Header("UI Setup")]
+    [SerializeField] Button btnStart;
+    [SerializeField] Button btnStatus;
+    [SerializeField] Button btnStore;
+    [SerializeField] Button btnGatcha;
+    [SerializeField] Button btnOption;
+    [SerializeField] TMP_Text UserLevel;
+    [SerializeField] TMP_Text CurrentMoney;
+    [SerializeField] Slider CurrentExp;
+
+    // Slider : Set Max Value and Current Value using Data Container
+    // Money : Set Current Value using Data Container
+    // UserLevel : Set Current Value using Data Container
+
+    private void Start()
+    {
+        Button startButton = btnStart.GetComponent<Button>();
+        startButton.onClick.AddListener(StartEvent);
+
+        Button statusButton = btnStatus.GetComponent<Button>();
+        statusButton.onClick.AddListener(StatusEvent);
+
+        Button storeButton = btnStore.GetComponent<Button>();
+        storeButton.onClick.AddListener(StoreEvent);
+
+        Button gatchaButton = btnGatcha.GetComponent<Button>();
+        gatchaButton.onClick.AddListener(GatchaEvent);
+
+        Button optionButton = btnOption.GetComponent<Button>();
+        optionButton.onClick.AddListener(OptionEvent);
+
+        // data collection.
+    }
+
+    public void StartEvent()
+    {
+        // Instantiate Stage Selection
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.StageSelection);
+        Destroy(gameObject);
+    }
+
+    public void StatusEvent()
+    {
+        // Instantiate Custom
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.Custom);
+        Destroy(gameObject);
+    }
+
+    public void StoreEvent()
+    {
+        // Instantiate Store;
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.Store);
+        Destroy(gameObject);
+    }
+
+    public void OptionEvent()
+    {
+        // Instantiate Store;
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.Option);
+        Destroy(gameObject);
+    }
+
+    public void GatchaEvent()
+    {
+        // Instantiate Gatcha
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.Gatcha);
+        Destroy(gameObject);
+    }
+
+
+}

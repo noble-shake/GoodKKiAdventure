@@ -38,7 +38,7 @@ public class LogoEffect : MonoBehaviour
         EnterText.gameObject.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
 
-        MainMenuManager.instance.OnMainMenu();
+        MainMenuManager.instance.OpenUI(enumMenuPrefabs.MainMenu);
         EnterText.gameObject.SetActive(false);
         Background.gameObject.SetActive(false);
 

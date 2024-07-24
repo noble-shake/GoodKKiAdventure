@@ -171,10 +171,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 2800, y: 1600}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -610,9 +610,21 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 127724828}
     - target: {fileID: 2033249034263245273, guid: 88d64a34780a7d1468a33359bdef34ef, type: 3}
+      propertyPath: StagePrefab
+      value: 
+      objectReference: {fileID: 4753381788926078004, guid: e5c9af2d5dc909b4fa0bd7eaf9664b00, type: 3}
+    - target: {fileID: 2033249034263245273, guid: 88d64a34780a7d1468a33359bdef34ef, type: 3}
       propertyPath: rotateSpeed
-      value: 5
+      value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 2033249034263245273, guid: 88d64a34780a7d1468a33359bdef34ef, type: 3}
+      propertyPath: CustomPrefab
+      value: 
+      objectReference: {fileID: 1789559358295985642, guid: 380ec13b7e8a3f943bb9f52281771193, type: 3}
+    - target: {fileID: 2033249034263245273, guid: 88d64a34780a7d1468a33359bdef34ef, type: 3}
+      propertyPath: GatchaPrefab
+      value: 
+      objectReference: {fileID: 2586699503718294623, guid: 6f05cb5af6ddecf45ad4509083b3fab4, type: 3}
     - target: {fileID: 2033249034263245273, guid: 88d64a34780a7d1468a33359bdef34ef, type: 3}
       propertyPath: PlayerObject
       value: 
