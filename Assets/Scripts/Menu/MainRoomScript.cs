@@ -12,7 +12,7 @@ public class MainRoomScript : MonoBehaviour
     [SerializeField] Button btnStore;
     [SerializeField] Button btnGatcha;
     [SerializeField] Button btnOption;
-    [SerializeField] TMP_Text UserLevel;
+    [SerializeField] TMP_Text CurrentLevel;
     [SerializeField] TMP_Text CurrentMoney;
     [SerializeField] Slider CurrentExp;
 
@@ -38,6 +38,26 @@ public class MainRoomScript : MonoBehaviour
         optionButton.onClick.AddListener(OptionEvent);
 
         // data collection.
+    }
+
+    private void OnEnable()
+    {
+        setDisplayInfo();
+    }
+
+    private void setDisplayInfo()
+    {
+        float reqExp = 100f;
+        for (int i = 1; i < DataManager.instance.level; i++)
+        {
+            reqExp += reqExp * 0.2f;
+        }
+
+        CurrentExp.maxValue = reqExp;
+        CurrentExp.value = DataManager.instance.exp;
+        CurrentLevel.text = DataManager.instance.level.ToString();
+        CurrentMoney.text = DataManager.instance.money.ToString();
+
     }
 
     public void StartEvent()
@@ -75,5 +95,9 @@ public class MainRoomScript : MonoBehaviour
         Destroy(gameObject);
     }
 
+    private void Update()
+    {
+        
+    }
 
 }

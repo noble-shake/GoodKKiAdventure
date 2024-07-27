@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 660ab99ef1d6fbc44bb2abc4ace81ad6, type: 3}
+  m_Name: StatGrants
+  m_EditorClassIdentifier: 
+  gHP: 5
+  gATK: 10
+  gSPD: 2
+  gDEF: 2
+  gCRT: 2

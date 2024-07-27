@@ -2665,6 +2665,6 @@ MonoBehaviour:
   btnStore: {fileID: 1349788377410741395}
   btnGatcha: {fileID: 3662056537727953886}
   btnOption: {fileID: 2440397531230693877}
-  UserLevel: {fileID: 3164242479129010359}
+  CurrentLevel: {fileID: 4836547137037365863}
   CurrentMoney: {fileID: 459846412505843844}
   CurrentExp: {fileID: 2749629816297846091}

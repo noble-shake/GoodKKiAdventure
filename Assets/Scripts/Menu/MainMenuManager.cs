@@ -17,10 +17,11 @@ public class MainMenuManager : MonoBehaviour
 {
     public static MainMenuManager instance;
     GameObject CurrentUI;
-    [SerializeField] Transform RoomObjectTrs;
 
-    [SerializeField] LogoEffect TitlePrefab;
-    
+    [SerializeField] GameObject RoomObject;
+    Transform RoomObjectTrs;
+
+    [SerializeField] LogoEffect TitlePrefab;    
     [SerializeField] Transform CanvasTrs;
 
     [Header("Menu Prefabs")]
@@ -32,13 +33,15 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject StagePrefab;
 
     [Header("Room Anim")]
-
+    bool isCustom;
     bool DragOn;
     float dragStartPtX;
     float dragUpdatePtX;
     [SerializeField] float rotateSpeed;
-    [SerializeField] GameObject PlayerObject;
-    [SerializeField] GameObject[] Playables;
+    [SerializeField] PlayerWaitScript PlayerObject;
+    [SerializeField] GameObject CustomCam;
+
+    public PlayerWaitScript currentPlayable { get { return PlayerObject; } }
 
     private void Awake()
     {
@@ -56,11 +59,18 @@ public class MainMenuManager : MonoBehaviour
     {
         //Instantiate(TitlePrefab, GameObject.FindGameObjectWithTag("UI").transform);
         Instantiate(TitlePrefab, CanvasTrs);
+        RoomObject = Instantiate(RoomObject);
+        RoomObjectTrs = RoomObject.transform;
     }
 
     void Update()
     {
         CharacterMoveEffect();
+    }
+
+    public Transform getCanvasTrs()
+    {
+        return CanvasTrs;
     }
 
     public void OpenUI(enumMenuPrefabs _enum)
@@ -91,47 +101,50 @@ public class MainMenuManager : MonoBehaviour
     private void OnMainMenu()
     {
         CurrentUI = Instantiate(MainMenuPrefab, CanvasTrs);
-        PlayerObject = Instantiate(PlayerObject, RoomObjectTrs);
+        if (PlayerObject != null)
+        { 
+            PlayerObject.gameObject.SetActive(false);
+        }
+
+        PlayerObject = DataManager.instance.getRoomPlayerObject();
+        PlayerObject.LevelCheck();
+        PlayerObject.transform.SetParent(RoomObjectTrs);
+        PlayerObject.gameObject.SetActive(true);
+        // PlayerObject = Instantiate(PlayerObject, RoomObjectTrs);
+        CustomCam.SetActive(false);
+        isCustom = false;
     }
 
     private void OnCustom()
     {
         CurrentUI = Instantiate(CustomPrefab, CanvasTrs);
-        Destroy(PlayerObject);
-        PlayerObject = null;
+        CustomCam.SetActive(true);
+        isCustom = true;
     }
 
     private void OnOption()
     {
         CurrentUI = Instantiate(OptionPrefab, CanvasTrs);
-        Destroy(PlayerObject);
-        PlayerObject = null;
     }
 
     private void OnStore()
     {
         CurrentUI = Instantiate(StorePrefab, CanvasTrs);
-        Destroy(PlayerObject);
-        PlayerObject = null;
     }
 
     private void OnGatcha()
     {
         CurrentUI = Instantiate(GatchaPrefab, CanvasTrs);
-        Destroy(PlayerObject);
-        PlayerObject = null;
     }
 
     private void OnStage()
     {
         CurrentUI = Instantiate(StagePrefab, CanvasTrs);
-        Destroy(PlayerObject);
-        PlayerObject = null;
     }
 
     private void CharacterMoveEffect()
     {
-        if (PlayerObject == null) return;
+        if (PlayerObject == null || isCustom) return;
 
         if (Input.GetMouseButtonDown(0))
         {

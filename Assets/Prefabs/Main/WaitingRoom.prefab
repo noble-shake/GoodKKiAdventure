@@ -283,7 +283,6 @@ GameObject:
   m_Component:
   - component: {fileID: 6909230102340232251}
   - component: {fileID: 1550942829843295240}
-  - component: {fileID: 8065460886067364023}
   m_Layer: 0
   m_Name: WaitingRoom
   m_TagString: Untagged
@@ -320,17 +319,3 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8381815779337873694}
   m_CullTransparentMesh: 1
---- !u!114 &8065460886067364023
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8381815779337873694}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b403f16622093c469fb080b6dd3b337, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  RotationSpeed: 5
-  PlayerObject: {fileID: 280093019161308345, guid: 9ee618dc29be6704c85a72b5fac71e7e, type: 3}
