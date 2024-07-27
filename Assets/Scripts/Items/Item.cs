@@ -1,12 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
-using Unity.VisualScripting.Dependencies.Sqlite;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class Item : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler
+public class Item : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHandler, IDeselectHandler
 {
     bool Equipped;
     [SerializeField] Button btnEquip;
@@ -47,14 +46,13 @@ public class Item : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         customRoom crm = GetComponentInParent<customRoom>();
         crm.descript = Data.Descript;
-
     }
 
-    //public void OnUnClicked()
-    //{
-    //    customRoom crm = GetComponentInParent<customRoom>();
-    //    crm.setDefaultText();
-    //}
+    public void OnUnClicked()
+    {
+        customRoom crm = GetComponentInParent<customRoom>();
+        crm.setDefaultText();
+    }
 
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -94,5 +92,10 @@ public class Item : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
         SelectedButton.onClick.AddListener(OnClicked);
         // EquippedImage.gameObject.SetActive(false);
         ItemDetach.gameObject.SetActive(false);
+    }
+
+    public void OnDeselect(BaseEventData eventData)
+    {
+        OnUnClicked();
     }
 }

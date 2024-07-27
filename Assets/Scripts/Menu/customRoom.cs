@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
@@ -91,14 +92,16 @@ public class customRoom : MonoBehaviour
         Destroy(gameObject);
     }
 
+
     public void setDefaultText()
     {
         EquipDescription.text = defaultText;
     }
 
     public void OnBtnUnarmed()
-    { 
-        
+    {
+        GetComponentInChildren<customRoomSlot>().OnUnEquip();
+        setDefaultText();
     }
 
     public void OnSell()

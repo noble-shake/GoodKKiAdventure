@@ -24,7 +24,7 @@ public class LogoEffect : MonoBehaviour
         Color alphaChange = new Color(0f, 0f, 0f, alphaValue);
         while (alphaValue < 1f)
         {
-            alphaValue += (Time.deltaTime / 2f);
+            alphaValue += (Time.deltaTime / 1);
             if (alphaValue > 1f)
             {
                 alphaValue = 1f;
@@ -33,8 +33,6 @@ public class LogoEffect : MonoBehaviour
             img.color = alphaChange;
             yield return null;
         }
-
-        yield return new WaitForSeconds(0.5f);
         EnterText.gameObject.SetActive(true);
         yield return new WaitUntil(() => Input.anyKeyDown);
 
@@ -44,7 +42,7 @@ public class LogoEffect : MonoBehaviour
 
         while (alphaValue > 0f)
         {
-            alphaValue -= (Time.deltaTime / 2f);
+            alphaValue -= (Time.deltaTime / 1f);
             if (alphaValue < 0f)
             {
                 alphaValue = 0f;

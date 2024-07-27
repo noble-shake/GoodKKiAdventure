@@ -20,5 +20,5 @@ MonoBehaviour:
   SPEED: 20
   DEFENCE: 0
   CRITICAL: 0
-  WaitingPrefab: {fileID: 280093019161308345, guid: 9ee618dc29be6704c85a72b5fac71e7e, type: 3}
+  WaitingPrefab: {fileID: 5841214149753347010, guid: 1c6ef10517f425249a066a7fe6cf2a25, type: 3}
   InGamePrefab: {fileID: 0}
