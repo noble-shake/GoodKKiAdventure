@@ -20,13 +20,34 @@ public class customRoom : MonoBehaviour
     [SerializeField] TMP_Text defText;
     [SerializeField] TMP_Text crtText;
 
-    bool sellCheck;
+    Item SelectedItem;
+    bool isSell;
     List<Item> ItemList;
 
     customRoomSlot slot;
+    [SerializeField] SellEquip sellDisplay;
     [SerializeField] Transform ItemGridTrs;
 
+
+    public bool sellCheck { get { return isSell; } set { isSell = value; } }
+
     public string descript { get { return EquipDescription.text; } set { EquipDescription.text = value; } }
+
+    public Item ItemSelect { get { return SelectedItem; } set { SelectedItem = value; } }
+
+
+    private void Update()
+    {
+        if (SelectedItem != null)
+        {
+            BtnSell.enabled = true;
+        }
+        else
+        {
+            BtnSell.enabled = false;
+        }
+    }
+
 
 
     private void OnEnable()
@@ -87,6 +108,8 @@ public class customRoom : MonoBehaviour
     }
     public void OnBack()
     {
+        if (isSell) return;
+
         setDefaultText();
         MainMenuManager.instance.OpenUI(enumMenuPrefabs.MainMenu);
         Destroy(gameObject);
@@ -100,18 +123,33 @@ public class customRoom : MonoBehaviour
 
     public void OnBtnUnarmed()
     {
+        if (isSell) return;
+
         GetComponentInChildren<customRoomSlot>().OnUnEquip();
         setDefaultText();
     }
 
     public void OnSell()
-    { 
+    {
+        if (isSell) return;
+
+        if (SelectedItem == null) return;
+
+        int idx = DataManager.instance.getSelectedEquipID(SelectedItem);
+        int itemValue = ItemList[idx].data.Cost;
+
         
+        sellDisplay.gameObject.SetActive(true);
+        sellDisplay.setAfterMoney(itemValue, idx);
+
+        sellCheck = true;
+
     }
 
     public void OnCharacterChange()
-    { 
-        
+    {
+        if (isSell) return;
+
     }
 
     public void changeStat(statusContainer _stat)

@@ -134,10 +134,7 @@ public class DataManager : MonoBehaviour
         return grants;
     }
 
-    public int getCurrentEquip()
-    {
-        return dataContainer.curEquip;
-    }
+
 
 
     private void ItemInjection(enumItemType _item)
@@ -169,6 +166,25 @@ public class DataManager : MonoBehaviour
         InGamePlayables.Add(co);
     }
 
+    public int getCurrentEquip()
+    {
+        return dataContainer.curEquip;
+    }
+
+    public int getSelectedEquipID(Item _target)
+    {
+        for (int i = 0; i < HasItems.Count; i++)
+        {
+            if (_target == HasItems[i])
+            {
+                return i;
+            }
+        }
+
+        Debug.LogError("Item Missing");
+        return -1;
+    }
+
     public void ItemSell(int _idx)
     {
         int sellCost = HasItems[_idx].data.Cost;
@@ -179,6 +195,7 @@ public class DataManager : MonoBehaviour
             dataContainer.curEquip--;
         }
 
+        Destroy(HasItems[_idx]);
         HasItemKeys.RemoveAt(_idx);
         HasItems.RemoveAt(_idx);
     }
@@ -305,6 +322,11 @@ public class DataManager : MonoBehaviour
         GameInitializeLoad();
     }
 
+    public void UnEquipped()
+    {
+        dataContainer.curEquip = -1;
+        GameSave();
+    }
     public void EquipAdjust(Item _equip)
     {
         for (int i = 0; i < DataManager.instance.HasItems.Count; i++)
