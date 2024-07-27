@@ -46,12 +46,14 @@ public class Item : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDragHand
 
         customRoom crm = GetComponentInParent<customRoom>();
         crm.descript = Data.Descript;
+        crm.ItemSelect = this;
     }
 
     public void OnUnClicked()
     {
         customRoom crm = GetComponentInParent<customRoom>();
         crm.setDefaultText();
+        
     }
 
 
