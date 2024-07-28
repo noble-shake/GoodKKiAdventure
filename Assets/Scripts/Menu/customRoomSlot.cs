@@ -25,6 +25,7 @@ public class customRoomSlot : MonoBehaviour, IDropHandler
             itemProxy.OnUnEquipped();
         }
         DataManager.instance.UnEquipped();
+
     }
 
     public void EquipRegistry(Item _obj)

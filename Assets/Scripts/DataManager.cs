@@ -188,6 +188,7 @@ public class DataManager : MonoBehaviour
     public void ItemSell(int _idx)
     {
         int sellCost = HasItems[_idx].data.Cost;
+        dataContainer.money += sellCost;
         // Get Money.
 
         if (_idx < dataContainer.curEquip)
@@ -195,9 +196,13 @@ public class DataManager : MonoBehaviour
             dataContainer.curEquip--;
         }
 
-        Destroy(HasItems[_idx]);
+        Destroy(HasItems[_idx].gameObject);
         HasItemKeys.RemoveAt(_idx);
         HasItems.RemoveAt(_idx);
+
+        dataContainer.haveEquip = HasItemKeys;
+
+        GameSave();
     }
 
     public void LoadExternalSetup()
@@ -250,7 +255,6 @@ public class DataManager : MonoBehaviour
             bytes = System.Text.Encoding.UTF8.GetBytes(data);
             string encoded = System.Convert.ToBase64String(bytes);
             File.WriteAllText(FileDirectory, encoded);
-
         }
 
         string jsonData = File.ReadAllText(FileDirectory);
@@ -307,6 +311,7 @@ public class DataManager : MonoBehaviour
         }
 
         FileDirectory = Path.Combine(Application.persistentDataPath, "SaveData.data");
+        Debug.Log(FileDirectory);
     }
 
     public void DataManagerInitialize()

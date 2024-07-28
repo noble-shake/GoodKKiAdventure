@@ -22,7 +22,6 @@ public class SellEquip : MonoBehaviour
         Button BtnNo = btnNo.GetComponent<Button>();
         BtnNo.onClick.AddListener(OnNo);
 
-        gameObject.SetActive(false);
     }
 
 
@@ -40,13 +39,17 @@ public class SellEquip : MonoBehaviour
     public void OnYes()
     {
         DataManager.instance.ItemSell(targetEquip);
+        Destroy(GetComponentInParent<customRoom>().ItemSelect.gameObject);
+        GetComponentInParent<customRoom>().ItemSelect = null;
+        GetComponentInParent<customRoom>().sellCheck = false;
+        GetComponentInParent<customRoom>().setDefaultText();
         gameObject.SetActive(false);
+
     }
 
     public void OnNo()
     {
         GetComponentInParent<customRoom>().sellCheck = false;
-        GetComponentInParent<customRoom>().setDefaultText();
         gameObject.SetActive(false);
     }
 }

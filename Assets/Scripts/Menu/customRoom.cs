@@ -22,7 +22,6 @@ public class customRoom : MonoBehaviour
 
     Item SelectedItem;
     bool isSell;
-    List<Item> ItemList;
 
     customRoomSlot slot;
     [SerializeField] SellEquip sellDisplay;
@@ -40,12 +39,29 @@ public class customRoom : MonoBehaviour
     {
         if (SelectedItem != null)
         {
-            BtnSell.enabled = true;
+            if (DataManager.instance.getCurrentEquip() != DataManager.instance.getSelectedEquipID(SelectedItem))
+            {
+                BtnSell.interactable = true;
+            }
+            else
+            {
+                BtnSell.interactable = false;
+            }
         }
         else
         {
-            BtnSell.enabled = false;
+            BtnSell.interactable = false;
         }
+
+        if (GetComponentInChildren<customRoomSlot>().equipCheck)
+        {
+            BtnUnarmed.interactable = true;
+        }
+        else
+        {
+            BtnUnarmed.interactable = false;
+        }
+
     }
 
 
@@ -53,11 +69,10 @@ public class customRoom : MonoBehaviour
     private void OnEnable()
     {
         setDefaultText();
-        ItemList = DataManager.instance.ItemList;
         int idx = DataManager.instance.getCurrentEquip();
         slot = GetComponentInChildren<customRoomSlot>();
 
-        foreach (Item item in ItemList)
+        foreach (Item item in DataManager.instance.ItemList)
         {
             item.gameObject.SetActive(true);
             item.transform.SetParent(ItemGridTrs);
@@ -65,8 +80,8 @@ public class customRoom : MonoBehaviour
 
         if (idx != -1)
         { 
-            slot.EquipRegistry(ItemList[idx]);
-            ItemList[idx].OnEquipped();
+            slot.EquipRegistry(DataManager.instance.ItemList[idx]);
+            DataManager.instance.ItemList[idx].OnEquipped();
         }
 
 
@@ -87,12 +102,7 @@ public class customRoom : MonoBehaviour
         Button btnCharacterChange = BtnCharacterChange.GetComponent<Button>();
         btnCharacterChange.onClick.AddListener(OnCharacterChange);
 
-        BtnSell.enabled = false;
-
-        if (!GetComponentInChildren<customRoomSlot>().equipCheck)
-        {             
-            BtnUnarmed.enabled = false;
-        }
+        BtnSell.interactable = false;
     }
 
     private void OnDisable()
@@ -100,7 +110,7 @@ public class customRoom : MonoBehaviour
         setDefaultText();
         if (DataManager.instance == null) return;
 
-        foreach (Item item in ItemList)
+        foreach (Item item in DataManager.instance.ItemList)
         {
             item.gameObject.SetActive(false);
             item.transform.SetParent(DataManager.instance.transform);
@@ -127,6 +137,7 @@ public class customRoom : MonoBehaviour
 
         GetComponentInChildren<customRoomSlot>().OnUnEquip();
         setDefaultText();
+        BtnUnarmed.interactable = false;
     }
 
     public void OnSell()
@@ -136,12 +147,10 @@ public class customRoom : MonoBehaviour
         if (SelectedItem == null) return;
 
         int idx = DataManager.instance.getSelectedEquipID(SelectedItem);
-        int itemValue = ItemList[idx].data.Cost;
+        int itemValue = DataManager.instance.ItemList[idx].data.Cost;
 
-        
         sellDisplay.gameObject.SetActive(true);
         sellDisplay.setAfterMoney(itemValue, idx);
-
         sellCheck = true;
 
     }
