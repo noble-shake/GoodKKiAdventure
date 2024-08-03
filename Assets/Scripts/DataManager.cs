@@ -1,6 +1,7 @@
 using Newtonsoft.Json;
 using System.Collections;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using UnityEngine;
@@ -310,7 +311,13 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        FileDirectory = Path.Combine(Application.persistentDataPath, "SaveData.data");
+        string OSDirectory = Application.persistentDataPath;
+        string FileName = "/SaveData.data";
+
+        FileDirectory = OSDirectory + FileName;
+
+        Debug.Log(OSDirectory);
+        Debug.Log(FileName);
         Debug.Log(FileDirectory);
     }
 

@@ -31,9 +31,6 @@ public class MainRoomScript : MonoBehaviour
         Button storeButton = btnStore.GetComponent<Button>();
         storeButton.onClick.AddListener(StoreEvent);
 
-        Button gatchaButton = btnGatcha.GetComponent<Button>();
-        gatchaButton.onClick.AddListener(GatchaEvent);
-
         Button optionButton = btnOption.GetComponent<Button>();
         optionButton.onClick.AddListener(OptionEvent);
 
@@ -85,13 +82,6 @@ public class MainRoomScript : MonoBehaviour
     {
         // Instantiate Store;
         MainMenuManager.instance.OpenUI(enumMenuPrefabs.Option);
-        Destroy(gameObject);
-    }
-
-    public void GatchaEvent()
-    {
-        // Instantiate Gatcha
-        MainMenuManager.instance.OpenUI(enumMenuPrefabs.Gatcha);
         Destroy(gameObject);
     }
 

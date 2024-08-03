@@ -6,6 +6,8 @@ TagManager:
   tags:
   - UI
   - item
+  - CoinSlot
+  - CoinGatcha
   layers:
   - Default
   - TransparentFX

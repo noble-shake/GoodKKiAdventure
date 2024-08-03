@@ -8,7 +8,6 @@ public enum enumMenuPrefabs
     MainMenu,
     Store,
     Custom,
-    Gatcha,
     Option,
     StageSelection,
 }
@@ -28,7 +27,6 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject MainMenuPrefab;
     [SerializeField] GameObject StorePrefab;
     [SerializeField] GameObject CustomPrefab;
-    [SerializeField] GameObject GatchaPrefab;
     [SerializeField] GameObject OptionPrefab;
     [SerializeField] GameObject StagePrefab;
 
@@ -89,9 +87,6 @@ public class MainMenuManager : MonoBehaviour
             case enumMenuPrefabs.Option:
                 OnOption();
                 break;
-            case enumMenuPrefabs.Gatcha:
-                OnGatcha();
-                break;
             case enumMenuPrefabs.StageSelection:
                 OnStage();
                 break;
@@ -130,11 +125,6 @@ public class MainMenuManager : MonoBehaviour
     private void OnStore()
     {
         CurrentUI = Instantiate(StorePrefab, CanvasTrs);
-    }
-
-    private void OnGatcha()
-    {
-        CurrentUI = Instantiate(GatchaPrefab, CanvasTrs);
     }
 
     private void OnStage()
