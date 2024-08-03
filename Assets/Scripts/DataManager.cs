@@ -1,9 +1,16 @@
 using Newtonsoft.Json;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using UnityEngine;
+
+public enum GetItemType
+{ 
+    Equip,
+    Playable,
+}
 
 public enum enumItemType
 { 
@@ -92,12 +99,103 @@ public class DataManager : MonoBehaviour
     public int exp { get { return dataContainer.exp; } set { dataContainer.exp = value; } }
     public int money { get { return dataContainer.money; } set { dataContainer.money = value; } }
 
+    public Sprite TossItem()
+    {
+        float tossValue = UnityEngine.Random.Range(0f, 1f);
+        if (tossValue < 0.77f)
+        {
+            return tossEquip();
+        }
+        else
+        {
+            return tossPlayable();
+        }
+         
+        return null;
+    }
+
+    public Sprite tossEquip()
+    {
+        // int dice = System.Enum.GetValues(typeof(enumItemType)).Length;
+        float tossValue = UnityEngine.Random.Range(0f, 1f);
+        if (tossValue < 0.5f)
+        {
+            // normal
+            List<ItemSO> NormalItems = new List<ItemSO>();
+            for (int i = 0; i < ItemObjects.Count; i++)
+            {
+                ItemRare rare = ItemObjects[i].EquipRare;
+                if (rare == ItemRare.Normal)
+                {
+                    NormalItems.Add(ItemObjects[i]);
+                }
+            }
+
+            int dice = NormalItems.Count;
+            int tossDice = UnityEngine.Random.Range(0, dice);
+
+            enumItemType target = NormalItems[tossDice].ItemType;
+            ItemInjection(target);
+            return NormalItems[tossDice].Attach;
+        }
+        else if (tossValue < 0.85f)
+        {
+            List<ItemSO> RareItems = new List<ItemSO>();
+            for (int i = 0; i < ItemObjects.Count; i++)
+            {
+                ItemRare rare = ItemObjects[i].EquipRare;
+                if (rare == ItemRare.Rare)
+                {
+                    RareItems.Add(ItemObjects[i]);
+                }
+            }
+
+            int dice = RareItems.Count;
+            int tossDice = UnityEngine.Random.Range(0, dice);
+
+            enumItemType target = RareItems[tossDice].ItemType;
+            ItemInjection(target);
+            return RareItems[tossDice].Attach;
+        }
+        else
+        {
+            // epic
+            List<ItemSO> EpicItems = new List<ItemSO>();
+            for (int i = 0; i < ItemObjects.Count; i++)
+            {
+                ItemRare rare = ItemObjects[i].EquipRare;
+                if (rare == ItemRare.Epic)
+                {
+                    EpicItems.Add(ItemObjects[i]);
+                }
+            }
+
+            int dice = EpicItems.Count;
+            int tossDice = UnityEngine.Random.Range(0, dice);
+
+            enumItemType target = EpicItems[tossDice].ItemType;
+            ItemInjection(target);
+            return EpicItems[tossDice].Attach;
+        }
+    }
+
+    public Sprite tossPlayable()
+    {
+        int dice = System.Enum.GetValues(typeof(PlayableCharacters)).Length;
+        int tossValue = UnityEngine.Random.Range(0, dice);
+
+        PlayableCharacters PlayableTarget = (PlayableCharacters)tossValue;
+
+        Debug.Log("Playable Get, But Not Implemented Yet");
+        return ItemObjects[0].Attach;
+    }
+
 
     private void SaveDataReset()
     {
         dataContainer.exp = 0;
         dataContainer.level = 1;
-        dataContainer.money = 0;
+        dataContainer.money = 200;
         dataContainer.curCharacter = 0;
         dataContainer.curEquip = -1;
         dataContainer.haveCharacter = new List<string>();
@@ -142,8 +240,9 @@ public class DataManager : MonoBehaviour
         Item go = Instantiate(ItemPrefab, transform);
         go.data = ItemObjects[(int)_item];
         go.gameObject.SetActive(false);
-        HasItemKeys.Add(go.name);
+        HasItemKeys.Add(go.data.ItemType.ToString());
         HasItems.Add(go);
+        dataContainer.haveEquip = HasItemKeys;
     }
 
     private void PlayerInjection(PlayableCharacters _char)
@@ -264,13 +363,19 @@ public class DataManager : MonoBehaviour
         JsonLoad();
     }
 
-    public void GameSave()
+    IEnumerator Saver()
     {
         byte[] bytes;
         string data = JsonConvert.SerializeObject(dataContainer);
         bytes = System.Text.Encoding.UTF8.GetBytes(data);
         string encoded = System.Convert.ToBase64String(bytes);
         File.WriteAllText(FileDirectory, encoded);
+        yield return null;
+    }
+
+    public void GameSave()
+    {
+        StartCoroutine(Saver());
     }
 
     public void JsonLoad()
@@ -310,7 +415,13 @@ public class DataManager : MonoBehaviour
             Destroy(gameObject);
         }
 
-        FileDirectory = Path.Combine(Application.persistentDataPath, "SaveData.data");
+        string OSDirectory = Application.persistentDataPath;
+        string FileName = "/SaveData.data";
+
+        FileDirectory = OSDirectory + FileName;
+
+        Debug.Log(OSDirectory);
+        Debug.Log(FileName);
         Debug.Log(FileDirectory);
     }
 

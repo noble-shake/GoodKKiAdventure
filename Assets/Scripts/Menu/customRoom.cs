@@ -76,6 +76,7 @@ public class customRoom : MonoBehaviour
         {
             item.gameObject.SetActive(true);
             item.transform.SetParent(ItemGridTrs);
+            item.transform.localScale = Vector3.one;
         }
 
         if (idx != -1)
@@ -220,7 +221,7 @@ public class customRoom : MonoBehaviour
         }
         else
         {
-            spdText.text = $"{curSpd + _add}% (+{_add}%))";
+            spdText.text = $"{curSpd + _add}% (+{_add}%)";
         }
     }
 
@@ -234,7 +235,7 @@ public class customRoom : MonoBehaviour
         }
         else
         {
-            defText.text = $"{curDef + _add}% (+{_add}%))";
+            defText.text = $"{curDef + _add}% (+{_add}%)";
         }
     }
 
@@ -248,7 +249,7 @@ public class customRoom : MonoBehaviour
         }
         else
         {
-            crtText.text = $"{curCrt + _add}% (+{_add}%))";
+            crtText.text = $"{curCrt + _add}% (+{_add}%)";
         }
     }
 }

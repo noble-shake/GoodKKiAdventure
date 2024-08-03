@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270f7293085cfa0468d30246d8b3176d, type: 3}
   m_Name: CheatSword
   m_EditorClassIdentifier: 
+  itemType: 6
   EquipName: "\uCE58\uD2B8 \uAC80"
   EquipDescript: "\uC0DD\uAE34\uAC83\uACFC \uB2E4\uB974\uAC8C \uB9D0\uB3C4 \uC548\uB418\uAC8C
     \uC0AC\uAE30\uB2E4. \uBE60\uB978 \uB370\uBAA8 \uD50C\uB808\uC774\uB97C \uC704\uD574\uC120
@@ -23,3 +24,4 @@ MonoBehaviour:
   DEFENCE: 50
   CRITICAL: 0
   cost: 100
+  rare: 2

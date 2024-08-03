@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270f7293085cfa0468d30246d8b3176d, type: 3}
   m_Name: LookGoodSword
   m_EditorClassIdentifier: 
+  itemType: 3
   EquipName: "\uBD10\uC904\uB9CC\uD55C \uAC80"
   EquipDescript: "\uACF5\uC0B0\uD488\uC774\uB77C \uBB34\uB09C\uD55C \uD004\uB9AC\uD2F0,
     \uB9E4\uB825\uC740 \uC880 \uB5A8\uC5B4\uC9C4\uB2E4."
@@ -22,3 +23,4 @@ MonoBehaviour:
   DEFENCE: 5
   CRITICAL: 0
   cost: 30
+  rare: 1

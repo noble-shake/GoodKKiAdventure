@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270f7293085cfa0468d30246d8b3176d, type: 3}
   m_Name: GoodShoes
   m_EditorClassIdentifier: 
+  itemType: 4
   EquipName: "\uC88B\uC740 \uC2E0\uBC1C"
   EquipDescript: "\uC5D0\uC5B4\uAC00 \uB2EC\uB9B0 \uC6B4\uB3D9\uD654, \uC18D\uB3C4\uAC00
     \uBE68\uB77C\uC9C4\uB2E4."
@@ -22,3 +23,4 @@ MonoBehaviour:
   DEFENCE: 5
   CRITICAL: 15
   cost: 30
+  rare: 1

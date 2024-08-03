@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 270f7293085cfa0468d30246d8b3176d, type: 3}
   m_Name: NomoreBrandShoes
   m_EditorClassIdentifier: 
+  itemType: 2
   EquipName: "\uC2DD\uC5B4\uBC84\uB9B0 \uC870\uB358"
   EquipDescript: "\uD55C\uBB3C \uAC04 \uBE0C\uB79C\uB4DC \uC2E0\uBC1C\uB9CC\uD07C
     \uCD0C\uC2A4\uB7EC\uC6B4 \uAC8C \uC788\uC744\uAE4C?"
@@ -22,3 +23,4 @@ MonoBehaviour:
   DEFENCE: 0
   CRITICAL: 10
   cost: 10
+  rare: 0

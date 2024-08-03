@@ -31,6 +31,10 @@ public class customRoomSlot : MonoBehaviour, IDropHandler
     public void EquipRegistry(Item _obj)
     {
         isEquipped = true;
+        if (itemProxy != null)
+        {
+            itemProxy.OnUnEquipped();
+        }
         itemProxy = _obj;
         itemProxy.OnEquipped();
         img.sprite = itemProxy.image;
