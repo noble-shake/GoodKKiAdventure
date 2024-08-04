@@ -23,12 +23,13 @@ public class CoinGatcha : MonoBehaviour, IBeginDragHandler, IEndDragHandler, IDr
 
     public void OpenItem()
     {
+        Item.sprite = DataManager.instance.TossItem();
         StartCoroutine(CoinEffect());
     }
 
     IEnumerator CoinEffect()
     {
-        Item.sprite = DataManager.instance.TossItem();
+        
         StartCoroutine(skipEffector);
         storeRoom.instance.EffectPlaying = true;
         isMagnetic = true;

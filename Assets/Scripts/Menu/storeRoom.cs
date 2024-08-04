@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using TMPro;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -117,27 +118,32 @@ public class storeRoom : MonoBehaviour
 
     public void OnBack()
     {
+        if (ButtonLock != 0) return;
+        
         MainMenuManager.instance.OpenUI(enumMenuPrefabs.MainMenu);
         Destroy(gameObject);
     }
 
     public void OnSingle()
     {
+        if (ButtonLock != 0) return;
         ButtonLock++;
         StartCoroutine(getGatchaChance());
     }
 
     public void OnMultiple()
     {
+        if (ButtonLock != 0) return;
         for (int i = 0; i < 10; i++)
         {
-            OnSingle();
+            ButtonLock++;
+            StartCoroutine(getGatchaChance());
         }
     }
 
     IEnumerator getGatchaChance()
     {
-        yield return new WaitForEndOfFrame();
+        yield return new WaitForSeconds(0.3f);
         // random
         int toss = Random.Range(0, 2);
         GameObject CreateSection = (toss == 0) ? CreateSectionLeft : CreateSectionRight;
@@ -149,10 +155,27 @@ public class storeRoom : MonoBehaviour
         int cX = (toss == 0) ? Random.Range(0, (int)width) : Random.Range(0, -(int)width);
         int halfY = (int)(height * 0.5f);
         int cY = Random.Range(-halfY, halfY);
-        Vector2 InstancePos = new Vector2(CreateRect.localPosition.x + cX, CreateRect.localPosition.y + cY);
+
+        float MoveDistance = 1000f;
+        Vector2 InstancePos = new Vector2(CreateRect.localPosition.x + cX, CreateRect.localPosition.y + cY + MoveDistance);
 
         CoinGatcha coin = Instantiate(coinPrefab, storeTrs);
         coin.GetComponent<RectTransform>().anchoredPosition = InstancePos;
+
+        float flowTime = 0f;
+        while (MoveDistance > 0f)
+        {
+            flowTime += Time.deltaTime;
+            MoveDistance -= Mathf.Exp(flowTime) * 9.81f;
+            if (MoveDistance < 0f)
+            {
+                MoveDistance = 0f;
+            }
+
+            coin.GetComponent<RectTransform>().anchoredPosition = new Vector3(CreateRect.localPosition.x + cX, CreateRect.localPosition.y + cY + MoveDistance, 0f);
+            yield return null;
+        }
+
         //coin.transform.position = InstancePos;
         // Money Change
     }
