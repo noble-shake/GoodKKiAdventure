@@ -8,6 +8,7 @@ TagManager:
   - item
   - CoinSlot
   - CoinGatcha
+  - Weapon
   layers:
   - Default
   - TransparentFX

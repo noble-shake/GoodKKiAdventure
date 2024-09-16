@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42ec92a9bf8f90f48aac5a79be7ef708, type: 3}
+  m_Name: Character4
+  m_EditorClassIdentifier: 
+  characterType: 3
+  CharName: Boxer
+  CharDescript: "\uD55C \uC5C6\uC774 \uD3C9\uD654\uB85C\uC6B4 \uB9C8\uC744\uC5D0\uC11C
+    \uB04A\uC784 \uC5C6\uC774 \uBAB8\uC744 \uB2E8\uB828\uD55C \uBCF5\uC11C, \uD639\uC2DC
+    \uC2F8\uC6C0\uC744 \uBC14\uB798\uC654\uB358 \uAC83\uC77C\uAE4C"
+  HP: 180
+  ATTACK: 40
+  SPEED: 30
+  DEFENCE: 0
+  CRITICAL: 20
+  WaitingPrefab: {fileID: 7625417128548270867, guid: 4f69a8cd0d598374f9a3fe3d60489056, type: 3}
+  InGamePrefab: {fileID: 7625417128548270867, guid: c0b005af9921be54a8e39fce3d6a9136, type: 3}

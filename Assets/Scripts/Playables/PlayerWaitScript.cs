@@ -7,11 +7,32 @@ public class PlayerWaitScript : MonoBehaviour
     string PlayerName;
     string PlayerDescript;
     GameObject WaitingGameObject;
+    [SerializeField] Material OriginSkin;
+    [SerializeField] Material LockSkin;
+    [SerializeField] SkinnedMeshRenderer skin;
 
     PlayerSO Data;
     statusContainer CharacterStatus;
-
     public PlayerSO data { get { return Data; } set { Data = value; dataDisassemble(); } }
+
+    public enum enumSkin
+    {
+        ORIGIN,
+        LOCK,
+    }
+
+    public void SkinChange(enumSkin _skin)
+    {
+        switch (_skin)
+        {
+            case enumSkin.ORIGIN:
+                skin.material = OriginSkin;
+                break;
+            case enumSkin.LOCK:
+                skin.material = LockSkin;
+                break;
+        }
+    }
 
     private void dataDisassemble()
     {

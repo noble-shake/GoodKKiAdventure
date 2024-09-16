@@ -5,6 +5,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "PlayerData", menuName = "ScriptableObjects/PlayerAsset", order = 1)]
 public class PlayerSO : ScriptableObject
 {
+    [SerializeField] public PlayableCharacters characterType;
     [SerializeField] string CharName;
     [SerializeField] string CharDescript;
     [SerializeField] int HP;
@@ -14,6 +15,7 @@ public class PlayerSO : ScriptableObject
     [SerializeField] int CRITICAL;
     [SerializeField] GameObject WaitingPrefab;
     [SerializeField] GameObject InGamePrefab;
+    public PlayableCharacters CharacterType { get { return characterType; } }
     public string Name { get { return CharName; } }
     public string Descript { get { return CharDescript; } }
     public GameObject waitPrefab { get { return WaitingPrefab; } }

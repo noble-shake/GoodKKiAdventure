@@ -26,21 +26,17 @@ public enum enumItemType
 
 public enum PlayableCharacters
 { 
-    Female1,
-    Female2,
-    Female3,
-    Female4,
-    Male1,
-    Male2,
-    Male3,
-    Male4,
+    SwordMaster,
+    Gunner,
+    Builder,
+    Boxer,
 }
 
 [System.Serializable]
 public class DataContainer
 {
     public int curCharacter;
-    public List<string> haveCharacter;
+    public bool[] haveCharacter;
     public int curEquip;
     public List<string> haveEquip;
     public int level;
@@ -82,8 +78,9 @@ public class DataManager : MonoBehaviour
     [SerializeField] List<PlayerSO> PlayerObjects;
     [SerializeField] PlayerScript PlayerPrefab;
     [SerializeField] PlayerWaitScript PlayerWaitingPrefab;
-    List<PlayerScript> InGamePlayables;
-    List<PlayerWaitScript> WaitingPlayables;
+    Dictionary<PlayableCharacters ,PlayerScript> InGamePlayables;
+    Dictionary<PlayableCharacters, PlayerWaitScript> WaitingPlayables;
+    bool[] HasPlayable;
 
     [SerializeField] StatGrantsSO grants;
 
@@ -93,9 +90,27 @@ public class DataManager : MonoBehaviour
 
     public PlayerWaitScript getRoomPlayerObject()
     {
-        return WaitingPlayables[dataContainer.curCharacter];
+        //return WaitingPlayables[dataContainer.curCharacter];
+
+        return WaitingPlayables[(PlayableCharacters)dataContainer.curCharacter];
     }
 
+    public PlayerWaitScript getSpecificRoomPlayerObject(int _idx)
+    { 
+        return WaitingPlayables[(PlayableCharacters)_idx];
+    }
+
+    public bool PlayableLockCheck(int idx)
+    {
+        return HasPlayable[idx];
+    }
+
+    public bool[] PlayableLockCheck()
+    {
+        return HasPlayable;
+    }
+
+    public int curCharacter { get { return dataContainer.curCharacter; } set { dataContainer.curCharacter = value; } }
     public int level { get { return dataContainer.level; } set { dataContainer.level = value; } }
     public int exp { get { return dataContainer.exp; } set { dataContainer.exp = value; } }
     public int money { get { return dataContainer.money; } set { dataContainer.money = value; } }
@@ -199,8 +214,8 @@ public class DataManager : MonoBehaviour
         dataContainer.money = 200;
         dataContainer.curCharacter = 0;
         dataContainer.curEquip = -1;
-        dataContainer.haveCharacter = new List<string>();
-        dataContainer.haveCharacter.Add(PlayableCharacters.Female1.ToString());
+        dataContainer.haveCharacter= new bool[4] { false, false, false, false};
+        dataContainer.haveCharacter[0] = true;
         dataContainer.haveEquip = new List<string>();
         dataContainer.haveEquip.Add(enumItemType.NormalSword.ToString());
         dataContainer.stageUnlock = 0;
@@ -219,9 +234,11 @@ public class DataManager : MonoBehaviour
             HasItems[dataContainer.curEquip].OnEquipped();
         }
 
-        foreach (string playable in dataContainer.haveCharacter)
-        { 
-            PlayableCharacters playerType = (PlayableCharacters)System.Enum.Parse (typeof(PlayableCharacters), playable);
+        // foreach (string playable in dataContainer.haveCharacter)
+
+        for(int idx=0; idx < 4; idx++)
+        {
+            PlayableCharacters playerType = (PlayableCharacters)idx;
             PlayerInjection(playerType);
         }
 
@@ -251,19 +268,19 @@ public class DataManager : MonoBehaviour
         PlayerWaitScript co = Instantiate(PlayerWaitingPrefab, transform);
         co.data = PlayerObjects[(int)_char];
         co.gameObject.SetActive(false);
-        WaitingPlayables.Add(co);
-
-
-        //Playable go = Instantiate(PlayablePrefab);
-        //go.data = 
+        WaitingPlayables[_char] = co;
     }
 
+
+    // InGame Summon
     public void PlayerSortie(PlayableCharacters _char, Transform _moveTrs)
     {
         PlayerScript co = Instantiate(PlayerPrefab, _moveTrs);
         co.data = PlayerObjects[(int)_char];
         co.gameObject.SetActive(false);
-        InGamePlayables.Add(co);
+        
+        
+        // InGamePlayables.Add(co);
     }
 
     public int getCurrentEquip()
@@ -431,8 +448,8 @@ public class DataManager : MonoBehaviour
         HasItemKeys = new List<string>();
         HasItems = new List<Item>();
         dataContainer = new DataContainer();
-        WaitingPlayables = new List<PlayerWaitScript>();
-        InGamePlayables = new List<PlayerScript>();
+        WaitingPlayables = new Dictionary<PlayableCharacters, PlayerWaitScript>();
+        InGamePlayables = new Dictionary<PlayableCharacters, PlayerScript>();
 
         LoadExternalSetup();
         SaveLoad();
